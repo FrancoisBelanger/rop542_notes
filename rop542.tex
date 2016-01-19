@@ -1,0 +1,56 @@
+\documentclass{book}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{amsmath,amsfonts,amsthm,amssymb}
+
+\usepackage{minitoc}
+
+\usepackage{xcolor}
+
+\newtheoremstyle{own}%
+    {3pt}% Space above
+    {3pt}% Space below
+    {}% Body font
+    {}% Indent amount
+    {\color{blue}\bfseries}% Theorem head font
+    {:}% Punctuation after theorem head
+    {\newline}% Space after theorem head
+    {}% Theorem head spec
+
+\theoremstyle{own}
+\newtheorem{example}{Example}[section]
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remarque}
+
+\newtheorem{prop}{Proposition}[section]
+
+\newtheorem{theorem}{Theorem}[section]
+
+\usepackage{tikz}
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+            \node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
+
+\renewcommand\qedsymbol{$\blacksquare$}
+
+\newcommand{\todo}[1]{\textcolor{red}{#1}}
+\begin{document}
+
+\frontmatter
+\dominitoc
+\tableofcontents
+
+\todo{Retravailler les commande remarque et definition}\\
+\todo{pour les définition mettre le mot tout de suite apres begin example suivi d'un line break}\\
+
+\mainmatter
+\include{chap1/chap1}
+\include{chap2/chap2}
+
+\backmatter
+
+	
+\end{document}

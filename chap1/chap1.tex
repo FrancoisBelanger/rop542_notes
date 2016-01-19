@@ -1,0 +1,110 @@
+\chapter{Préliminaires}
+\minitoc
+\todo{enlever les numero de page, le titre content et les lignes horizontale}
+
+	\section{Optimisation}
+
+		Avant d'entreprendre l'étude de problèmes d'optimisation il est bien de définir ce qu'est un problème d'optimisation.\\
+
+Celui-ci consiste a déterminer la valeur possible qu'une fonction réelle $$f\colon E \to \mathbb{R}$$ nommé fonction objectif, peut prendre dans l'ensemble $E$, nommé ensemble réalisable.\\
+
+\begin{itemize}
+	\item Pour la minimisation
+		$$
+			f^* = \inf_{x \in E} f(x)
+		$$
+
+		Cela signifie que
+		\begin{enumerate}
+			\item $f(x) \geq f^* \text{~~~~}\forall x \in E$
+			\item $\forall \epsilon > 0, \exists x_{\epsilon} \in E \mid f(x_{\epsilon}) < f^* + \epsilon$
+			\begin{example}
+				Soit $E=\mathbb{R}$ \\
+				Si $f(x) = e^x$, on a que
+				$$0 = \inf_{x \in E} f(x), \text{ mais } f(x) > 0 \text{~~} \forall \in E$$
+
+				Par contre si $f(x)=x^2$ on a que\\
+				$$0 = f(0) = \inf_{x \in E} f(x) = \min_{x \in E} f(x)$$
+				
+			\end{example}
+		\end{enumerate}
+
+	\item Pour la maximisation
+		$$
+			f^* = \sup_{x \in E} f(x)
+		$$
+
+		\begin{enumerate}
+			\item $f(x) \leq f^* \text{~~~~} \forall x \ in E$
+			\item $\forall \epsilon > 0, \exists x_{\epsilon} \in E \mid f(x_\epsilon) > f^*-\epsilon $
+		\end{enumerate}
+\end{itemize}
+
+Notons que maximiser $f$ revient à minimiser $-f$. Ainsi sans perte de généralité, on peut uniquement considérer les problèmes de minimisation.\\
+
+Sans ajouter d'hypothèse sur la fonction $f$ et l'ensemble $E$, il n'est pas certain que l'on puisse trouver un élément $x^*$ tel que $f(x^*) = f^*$. Lorsque c'est le cas, la formulation mathématique devient:
+
+$$
+	f(x^*)=f^*=\min_{x\in E} f(x)
+$$
+
+De manière évidente, les problèmes pour lesquels il existe un élément de l'ensemble $E$ tel que $f(x^*)=f^*$ seront particuliairement intéressants. Un tel pointe de l'ensemble $E$ est nommé optimum et il peut être un minimum ou un maximum.
+
+\section{Types d'optimums}
+	Sans hypothèse additionnelles, les problèmes tels que décrits précédemment sont en général impossible à résoudre. Considérons la fig. 1
+
+\todo{Ajouter la fig.1}
+	\begin{itemize}
+		\item Où se situe le minimum de la fonction?
+		\item Comment identifier lequel des nombreux (voir infinis!) miminum apparant est le plus petit?
+	\end{itemize}
+
+	Pour arriver à étudier les problèmes d'optimisation nous allons classifier les optimums selons différents critères.
+
+	\subsection{Optimums locaux et globaux}
+		Jusqu'à maintenant, nous avons défini les optimums en comparant la valeur de la fonction $f$ à l'optimum avec sa valeur en tout autre point de $E$. Ce type de problème est connu sous le nom d'optimisation globale. Si on baisse un peu les attentes et que l'on compare les valeurs de la fonction $f$ dans un voisinage, alors $x^*$ est un minimum local s'il existe $$\epsilon > 0 \text{ t.q. } f(x) \geq f(x^*), \text{  }\forall x \in E \cap V_\epsilon(x^*)$$
+qui est un voisinage de diamètre $\epsilon$ centré en $x^*$.
+
+	\subsection{Optimums stricts}
+		La notion d'optimum strict conserne le fait que d'autre point du voisinage ne puissent avoir la même valeur que $x^*$. Par exemple à la figure 2, les zones encerclées contiennent des optimums qui ne sont pas stricts, tandis que les autres le sont.
+
+		\todo{Ajouter la fig. 2}
+
+		\begin{definition}
+			Un minimum local $x^*$ est dit strict s'il existe une valeur $\epsilon > 0 \text{ t.q. } \forall x \in V_\epsilon(x^*)$ et pour $x\neq x^*$ $f(x)>f(x^*)$.
+		\end{definition}
+		\todo{Ajouter underline dans la définition}
+
+	\subsection{Optimums isolés}
+		Sur la figure 2, les optimums encerclés ne sont pas stricts, mais chaque ensemble d'optimums est séparé les uns des autres. La notion d'optimum isollé formalise cette situation.
+
+		\begin{definition}
+			Un ensemble connexe d'optimums $O$ est dit isolé si quelque soit un optimum $x \not\in O$, la distance de $x$ à $O$ est borné inférieurement par une constante positive.
+		\end{definition}
+		\todo{Ajouter underline dans la définition}
+
+		\begin{example}
+			La fonction $\left(x sin\left(\frac{1}{x}\right)\right)^2$ comporte une accumulation de minimum locaux à l'origine. L'origine n'est pas un optimum isolé ni strict, car une infinité de points valent $0$ près de l'origine.
+		\end{example}
+
+\section{Conditions d'optimalité}
+\todo{vérifier l'orthographe du titre de la section}
+	Malgré les classifications précédentes, il demeure difficile d'identifier ou de vérifier qu'un point $x^*$ est un optimum d'un problème . En effet, les définitions dont nous disposons exigeraient de comparer les valeurs d'une fonction en un point $x^*$ avec sa valeur en une infinité de points voisins de $x^*$. L'analyse mathématique vient alors à notre secours.
+
+	\subsection{Conditions pour un point stationnaire}
+		On apprend dans les permiers cours de calcul qu'une fonction possède des optimums locaux en des points qui annulent sa dérivée. De tels points sont nommés point stationnaires. Les points stationnaires pour une fonction réelle peuvent être de trois types: minimums locaux, maximum locaux et points d'inflexions.\\
+
+Par conséquent, tout minimum local est un point stationnaire, mais l'inverse n'est pas vrai. Les points stationnaires satisfont donc a la condition nécessaire d'optimimalité de premier ordre: $f'(x)=0$
+	\subsection{Conditions pour un optimum}
+		On apprend aussi dans les cours de calcul que si,  en point stationnaire, la dérivé seconde d'une fonction est positive il s'agit d'un minimum local. Si elle est négative, il s'agit d'un maximum local et si elle est nulle one ne peut rien conclure. Les points stationnaires qui satisfons à la condition suffisante d'optimalité de second ordre: $f''(x)>0$ sont donc des minimums.
+
+		\begin{theorem}
+			Soit $f$ une fonction de classe $C^2$. Un point $x^*$ qui satisfait aux conditions nécessaire et suffisante d'optimalité est un minimum local strict et isolé.
+		\end{theorem}
+
+		Le cas $f''(x^*)=0$ comporte une ambiguité que l'on peut illustrer par les fonctions $$f_1(x)=x^4 \text{ et } f_2(x)=-x^4$$
+
+		en $x^*=0$, pour les deux fonctions, on a que 
+$$f'(0)=f''(0)=0$$
+
+bien que l'origine soit un minimum pour $f_1$ et un maximum pour $f_2$.

@@ -1,0 +1,216 @@
+\chapter{Programation linéaire}
+\minitoc
+\todo{enlever les numero de page, le titre content et les lignes horizontale}
+
+	\section{Modélisation mathématique}
+		La programation linéaier est une branche des mathématiques ayant pour objectif la réalisation par des techniques d'optimisation de nombreux problèmes écomomique et industriels. La fonction objectif de même que les contraintes à respecter doivent dépendre linéairement d'un ensemble de variables de décision. La solution optimale à un programme linéaire sera un ensemble de valeurs à donner aux variables de décision qui maximisera lou minimisera la valeur de la fonction objectif.
+	
+	\section{Représention graphique d'inéquation linéaire à 2 variables}
+		Une inéquation représente une inégalité entre deux quantités algébriques. Cette inégalité contient des inconnues, et résoudre une inéquation signifiw trouver une ou des valeurs pour ces inconnues qui rendent vraie l'inégalité. En particulier, une inéquation linéaire à deux variables aura une des formes suivantes: 
+
+		$$
+			\left.
+			\begin{array}{l}
+				ax + by < c \\
+				ax + by \leq c \\
+				ax + by > c \\
+				ax + by \geq c \\
+			\end{array}
+			\right\} , a, b \in \mathbb{R}
+		$$
+
+		La droite $ax + by = c$ divise le plant en deux régions: l'ensemble des points$(x,y)$ respectant l'inégalité et l'ensemble des points $(x,y)$ ne la respectant pas.
+\\ \todo{FBR ajouter une figure pour ca}
+
+	Dans un programme linéaire à deux variables chaque contrainte prendra la forme d'une telle inégalité. En mettant en commun l'ensemble des contraintes on pourra obtenir une région du plan, appelé domaine réalisable, où toutes les contraintes sont respectées.
+
+	\section{Recherche graphique d'un optimum}
+		Pour une programme linéaire à deux variables, le domaine réalisable prendra la forme d'un polygône convexe appelé polygone de contraintes. Si la valeur optimale d'une fonction objectif d'un problème existe, alors cette valeur est atteinte à au moins un des sommets du polygone de contraintes.
+\\ \todo{generer et ajouter la figure}
+
+	\section{Méthodes du simplexe}
+	\todo{refaire la mise en page et separer les paragraphes}\\
+		L'algorithme du simplexe est une méthode fondamentale pour résoudre des problèmes d'optimisation linéaire. Étant donné un ensemble d'inégalité linéaire sur n variables réelles l'algorithme permet de minimiser (ou maximiser) une fonction objectif qui est elle aussi linéraire. La forme standard d'un programme linéaire est 
+		$$
+			\begin{array}{rl}
+				\text{maximiser} & \left. z=c_1x_1 + c_2x_2 + \dots + c_nx_n\right\}\text{fonction objectif}\\
+				\\
+				\text{sujet à} & \\
+				&  \left.
+					\begin{array}{l}
+						a_{11}x_{1}+a_{12}x_{2}+ \dots + a_{mn}x_n \leq b_1\\
+						a_{21}x_{1}+a_{22}x_{2}+ \dots + a_{mn}x_n \leq b_1\\
+						\text{~~~~}\vdots \\
+						a_{m1}x_{1}+a_{m2}x_{2}+ \dots + a_{mn}x_n \leq b_1
+					\end{array}
+					\right\}\text{contraintes}\\
+				\\
+				 & \text{avec }b_i\geq 0 \text{pour tou t} i
+			\end{array}\\
+		$$
+
+		Pour amener un programme linéaire de sa forme standard à sa forme canonique il faut convertir les contraintes en égalités. Cela s'effectue en ajoutant ou en retranchant une quantité non négative $e_i$ au terme de gauche selon le type d'inégalité. On appellera $e_i$ variable d'écart ou variable de surplus selon le cas.
+
+		\begin{example}
+			\todo{ajouter partie1}\\
+			\todo{ajouter l'énoncé}\\
+				\underline{Forme standard}\\
+				\todo{indenter le bloc de texte}\\
+					$x:\text{quantité de sirop(L)}$\\
+					$y:\text{quantité de tire(L)}$\\
+					maximizer $R:8x+20y$\\
+					sujet à\\
+					$30x+80y \leq 60 000$\\
+					$\frac{1}{20}x +\frac{1}{10}y \leq 90$\\
+					$y \leq 500$\\
+					$x \geq 0$\\
+					$y \geq 0$\\
+		
+				\noindent \underline{Forme canonique}\\
+					\todo{indenter le bloc de texte}\\
+					maximiser $r:8x+20r$\\
+					sujet à\\
+					$30x+80y+e_1=60 000$\\
+					$\frac{1}{20}x + \frac{1}{2}y+e_2=90$\\
+					$y+e_3=500$\\
+					$x\geq 0$\\
+					$y\geq 0$\\
+					$e_1\geq 0$\\
+					$e_2\geq 0$\\
+					$e_3\geq 0$\\
+					$e_4\geq 0$\\
+		\end{example}
+
+		\todo{enlever l'indent}\\
+		Soit la matrice 
+		$$
+			\begin{array}{rl}
+				A=& \left[ \begin{array}{cccc}
+						a_{11} & a_{12} & \dots & a_{1n} \\
+						a_{21} & a_{22} & \dots & a_{2n} \\
+						\vdots &  & \ddots & \vdots\\
+						a_{m1} & a_{m2} & \dots & a_{mn} 
+					\end{array} \right]x
+			\end{array}
+		$$
+		et les vecteurs
+		$$
+			\begin{array}{rl}
+				c&=\left(c_1, c_2, \dots, c_n \right)\\
+				x&=\left(x_1, x_2, \dots, x_n \right)\\
+				b&=\left(b_1, b_2, \dots, b_n \right)
+			\end{array}
+		$$
+		On pout exprimer un programme linéaire sous la forme canonique suivante:\\
+		\todo{refaire le formatage selon ce qui est dans les notes}
+		mininiser $z-c^t$ sujet à $Ax=b$ et $x \geq 0$.\\
+
+		Pour une problème de maximisation standard l'algorithme du simplexe est composée des étapes suivantes:\\
+
+		\begin{enumerate}
+			\item Écrire le problème de maximisation sous la forme canonique et introduisant des variables d'écart et construire le tableau du simplexe initial.
+
+			\item La dernière ligne du tableau su simplexe comporte-t-elle des éléments négatifs:\\
+				\begin{itemize}
+					\item Si oui: étape 3
+					\item Sinon: solution optimale
+				\end{itemize}
+			\item Choisir pour variable entrante celle qui est associée à la valeur négative la plus grande en valeur absolue dans la dernière ligne du tableau. La colonne de la variable entrante est la colonne pivot.
+			\item Le quotient de la valeur d'une des variables de vase par l'élément correspondant de la colonne pivot est-il positif?
+				\begin{itemize}
+					\item Si non: le problème n'a pas de solution
+					\item Si oui: étape 5
+				\end{itemize}
+
+			\item Choisir pour variable sortante celle qui est associée au plus faible quotient positif fini de la valeur divisée par l'élément correspondant de la colonne pivot. La ligne de la variable sortante est la ligne pivot.
+
+			\item Déterminer le pivot: l'élément à l'intersection des lignes et colonnes pivots et effectuer le pivotage pour produire un nouveau tableau du simplexe où la variable entrante remplace la variable sortante et revenir a l'étape 2
+		\end{enumerate}
+
+		\todo{donner un titre genre érablière partie 2}
+		\begin{example}
+			\todo{ajuste les = de la col. quotient}
+			$$
+			\begin{array}{r|cccccc|c|l}
+				Base & x & y & e_1 & e_2 & e_3 & R & Valeur & Quotient\\
+				\hline
+				e_1 & 30 & 80 & 1 & 0 & 0 & 0 & 60000 & \frac{60000}{80} = 750 \\
+				e_2 & \frac{1}{20} & \frac{1}{10} & 0 & 1 & 0 & 0 & 90 & \frac{90}{\frac{1}{10}} = 900 \\
+				e_3 & 0 & \circled{1} & 0 & 0 & 1 & 0 & 500 & \frac{500}{1} = 500 \\
+				\hline
+				R & -8 & -20 & 0 & 0 & 0 & 1 & 0
+			\end{array}
+			$$
+			Pivotage:
+			$$
+				\begin{array}{r|cccccc|c|l}
+					Base & x & y & e_1 & e_2 & e_3 & R & Valeur & Quotient\\
+					\hline
+					e_1 & \circled{30} & 0 & 1 & 0 & -80 & 0 & 20000 & \frac{20000}{30} = 666.\overline{66}\\
+					e_2 & \frac{1}{20} & 0 & 0 & 1 & -\frac{1}{10} & 0 & 40 & \frac{40}{\frac{1}{20}} = 800\\
+					y & 0 & 1 & 0 & 0 & 1 & 0 & 500 & \frac{500}{0} = \text{nope, on peut pas}\\
+					\hline
+					R & -8 & 0 & 0 & 0 & 20 & 1 & 10000
+				\end{array}
+			$$
+			On retourne a l'étape 2: \todo{ajouter le cercle autour du 1/30}
+			$$
+				\begin{array}{r|cccccc|c|l}
+					Base & x & y & e_1 & e_2 & e_3 & R & Valeur & Quotient\\
+					\hline
+					x & 1 & 0 & \frac{1}{30} & 0 & -\frac{8}{3} & 0 & 666.\overline{66} & \text{négatif} \\
+					e_2 & 0  & 0 & -\frac{1}{600} & 1 & \frac{1}{30} & 0 & \frac{20}{3} & \frac{\frac{20}{3}}{\frac{1}{30}} = 200\\
+					y & 0 & 1 & 0 & 0 & 1 & 0 & 500 & \frac{500}{1}=500\\
+					\hline
+					R & 0 & 0 & \frac{4}{15} & 0 & -\frac{4}{3} & 1 & \frac{46000}{3}
+				\end{array}
+			$$
+			$$
+				\begin{array}{r|cccccc|c|l}
+					Base & x & y & e_1 & e_2 & e_3 & R & Valeur & Quotient\\
+					\hline
+					x & 1 & 0 & -\frac{1}{10} & 80 & 0 & 0 & 1200\\
+					e_3 & 0 & 0 & -\frac{1}{20} & 30 & 1 & 0 & 200\\
+					y & 0 & 1 & \frac{1}{20} & -30 & 0 & 0 & 300\\
+					\hline
+					R & 0 & 0 & \frac{1}{5} & 40 & 0 & 1 & 15600
+				\end{array}
+			$$
+
+			Par conséquent, pour maximiser le profit, on doit produire $1200L$ de sirop et $300L$ de tire, le profit sera de $15600\$$
+		\end{example}
+
+		Si un problème de programmation linéaire est exprimé sous une forme où se retrouvent des contraintes d'inégalités, alors apparaît le couple primal-dual suivant:\\
+		\todo{refaire l'alignement et s'assurer que le à du sujet à apparait correctement}\\
+		\begin{itemize}
+			\item Problème primal\\
+				\begin{align*}{rrl}
+					Maximiser & & \\
+						& z &=c^tx \\
+					Sujet à & & \\
+						& Ax &\leq b\\
+						& x &\geq 0\\
+				\end{align*}
+			\item Problème dual\\
+				\begin{align*}{rrl}
+					Minimizer & & \\
+						& V & =b^ty \\
+					Sujet à & & \\
+						& A^ty & \geq c \\
+						& y & \geq 0 
+				\end{align*}
+		\end{itemize}
+
+		\todo{refaire l'alignement}\\
+		De manière générale, on a les règles suivantes:
+		\begin{enumerate}
+			\item À toutes contraintes du problème primal correspond un variable du problème dual et à toute variable du problème primal correspond une contrainte du dual.
+
+			\item À toute contrainte d'égalité du problème primal correspond une variable libre du dual. Une variable $x_i$ rst libre su elle n'est pas contrainte à être négative.
+
+			\item À une contrainte d'inégalité du primal correspond une variable non négative ou non positive du problème dual.
+
+			\item À une variable libre du primal correspond une contrainte d'égalité du dual.
+
+			\item À une variable non-négative ou non-positive du problème primal correspond une contrainte d'inégalité du dual.
+		\end{enumerate}
