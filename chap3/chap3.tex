@@ -1,0 +1,52 @@
+\chapter{Classification}
+\minitoc
+
+	\section{Définition du problème}
+		Soit une ensemble de données dans $\mathbb{R}^n$. L'objectif de la classification est de regrouper ces données en sous-ensemble, nommé classe, en fonction de leur proximité géométrique.\todo{ajouter la figure qui est dans les notes}\\
+
+		Pour visualiser le problème de la classification, on s'intéresse à la segmentation d'images. Partant d'une image d'entrée $y$, on cherchera à estimer une image de sortie $x$, où chaque pixel contiendra une étiquette de classe plutôt qu'une intensité.\\
+
+		Tout les pixels d'une même classe partagent une ou plusieures caractéristiques en commun (couleur, mouvement, texture, etc\dots).\\
+
+		L'histogramme d'une imagereprésente le nombre de pixel appartenant à chaque intensité pouvant être représenté dans l'image.
+		$$
+			H(c)=\text{nombre de pixel d'intensité }c
+		$$
+
+		Parfois, l'histogramme est normalisé par le nombre de pixel dans l'image:
+		$$
+			H'(c)=P(c)=\frac{\text{nombre de pixel d'intensité }c}{\text{nombre de pixel total dans l'image}}
+		$$
+		Ainsi définie, $P(c)$ donne une idéee de la probabilité d'occurence d'un pixel d'intensité $c$. Pour une image à niveau de gris on a que:
+		$$
+			\sum_{c=0}^{255}P(c) = 1
+		$$
+
+	\section{Segmentation basée sur un seuil}
+		\todo{ajouter l'algorithme}
+
+		Le seuil devant être fixé par l'utilisateur on dira qu'il s'agit d'un algorithme supervisé. On s'intéresse maintenant à touver "le meilleur" seuil sans supervision.
+		\begin{itemize}
+			\item $P\left(y(i,j)=\alpha\right)$:\\
+				Probabilité d'observer un pixel de niveau de gris $\alpha$ dans l'image $y$.
+
+			\item $P\left(y(i,j)=\alpha, x(i,j)=1\right)$:\\
+				Probabilité d'observer un pixel de niveau de gris $\alpha$ dans l'image $y$ et faisant partie de la classe $1$.
+
+			\item $P\left(x(i,j)=1\right)$:\\
+				Probabilité d'observer un pixel faisant partie de la classe $1$.
+		\end{itemize}\todo{indenter les descriptions des definitions}
+
+		On a donc que:
+		$$
+			P(\alpha,1) = P\left(x(i,j)\right) \dot P\left(y(i,j)=\alpha | x(i,j)=1\right)
+		$$\todo{ajouter les underbracket pour nommer les termes}
+
+		où $P\left(y(i,j)=\alpha | x(i,j)=1\right)$ est une probabilitée contidionnelle. C'est la probabilitée d'observer un pixel de niveau de gris $\alpha$ étant donné qu'il appartient à la classe $1$.\\
+
+		\todo{ajouter la figure de gaussienne normalise}
+		\\
+
+		Étant donné une mixture de deux gaussienne dont on connaît les paramètres $(P(x(i,j)=1), \mu_1, \sigma_1)$ et $(P(x(i,j)=2), \mu_2, \sigma_2)$\todo{verifier avec Olivier si mes parentheses sont au bonnes places} comment trouver le meilleur seuil $T$?\\
+
+		Pour y arriver on doit quantifier l'erreur de classification d'un certain seuil $T$. Le seuil retenu sera celui associé à la plus petite erreur.\todo{ajouter la figure mix of gaussian}

@@ -2,6 +2,8 @@
 \usepackage[T1]{fontenc}
 \usepackage[french]{babel}
 \usepackage{amsmath,amsfonts,amsthm,amssymb}
+\usepackage{enumitem}
+\usepackage{todonotes}
 
 \usepackage{minitoc}
 
@@ -36,7 +38,6 @@
 
 \renewcommand\qedsymbol{$\blacksquare$}
 
-\newcommand{\todo}[1]{\textcolor{red}{#1}}
 \begin{document}
 
 \frontmatter
@@ -44,11 +45,11 @@
 \tableofcontents
 
 \todo{Retravailler les commande remarque et definition}\\
-\todo{pour les définition mettre le mot tout de suite apres begin example suivi d'un line break}\\
 
 \mainmatter
 \include{chap1/chap1}
 \include{chap2/chap2}
+\include{chap3/chap3}
 
 \backmatter
 
